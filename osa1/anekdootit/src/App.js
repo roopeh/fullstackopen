@@ -2,9 +2,8 @@ import React, { useState } from 'react'
 
 const Header = ({ text }) => <h1>{text}</h1>
 const Button = ({ text, click }) => <button onClick={click}>{text}</button>
-const Display = ({ text }) => <big>{text}<br /></big>
 
-const Anecdote = ({text, votes}) => {
+const Anecdote = ({ text, votes }) => {
   return (
     <div>
       <big>

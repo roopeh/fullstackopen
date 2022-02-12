@@ -39,9 +39,9 @@ const Statistics = ({ feedback }) => {
 const App = () => {
   const [feedbacks, setFeedbacks] = useState({ good: 0, neutral: 0, bad: 0 })
 
-  const addGood = () => setFeedbacks(feedbacks => ({ ...feedbacks, good: feedbacks.good + 1 }))
-  const addNeutral = () => setFeedbacks(feedbacks => ({ ...feedbacks, neutral: feedbacks.neutral + 1}))
-  const addBad = () => setFeedbacks(feedbacks => ({ ...feedbacks, bad: feedbacks.bad + 1 }))
+  const addGood = () => setFeedbacks({ ...feedbacks, good: feedbacks.good + 1 })
+  const addNeutral = () => setFeedbacks({ ...feedbacks, neutral: feedbacks.neutral + 1})
+  const addBad = () => setFeedbacks({ ...feedbacks, bad: feedbacks.bad + 1 })
 
   return (
     <div>
