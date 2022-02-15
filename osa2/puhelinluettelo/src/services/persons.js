@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const url = 'http://localhost:3001/api/persons'
+const url = '/api/persons'
 
 const getAll = () => {
     const request = axios.get(url)
@@ -22,9 +22,11 @@ const getAll = () => {
     return request.then(response => response.data)
   }
   
-  export default { 
+  const exportedObjects = { 
     getAll: getAll, 
     create: create, 
     update: update, 
     remove: remove
   }
+
+  export default exportedObjects

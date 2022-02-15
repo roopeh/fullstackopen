@@ -5,7 +5,7 @@ import Persons from './components/Persons'
 import Notification from './components/Notification'
 import personService from './services/persons'
 
-const Header = ({name}) => <h2>{name}</h2>
+const Header = ({name}) => <h2 className="header">{name}</h2>
 
 const App = () => {
   const [persons, setPersons] = useState([]) 
