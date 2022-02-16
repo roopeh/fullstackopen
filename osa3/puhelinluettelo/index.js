@@ -98,6 +98,7 @@ app.delete("/api/persons/:id", (req, res) => {
     const person = persons.find(itr => itr.id === id)
 
     if (person) {
+        persons = persons.filter(itr => itr.id !== id)
         res.status(204).end()
     } else {
         res.status(404).end()
