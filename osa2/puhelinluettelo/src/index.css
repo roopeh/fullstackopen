@@ -31,5 +31,12 @@
 
 .persons {
     color: blue;
+    background-color: lightgray;
+    border-radius: 10px;
     border-spacing: 10px;
+}
+
+.persons button {
+    background-color: black;
+    color: red;
 }

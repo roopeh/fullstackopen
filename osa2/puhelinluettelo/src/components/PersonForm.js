@@ -2,9 +2,13 @@ const PersonForm = ({ name, number, nameChangeFunction, numberChangeFunction, su
     return (
         <div>
             <form onSubmit={submitFunction}>
-                <div>name: <input value={name} onChange={nameChangeFunction} /></div>
-                <div>number: <input value={number} onChange={numberChangeFunction} /></div>
-                <div><button type="submit">add</button></div>
+                <table>
+                    <tbody>
+                        <tr><td>name:</td><td><input value={name} onChange={nameChangeFunction} /></td></tr>
+                        <tr><td>number:</td><td><input value={number} onChange={numberChangeFunction} /></td></tr>
+                        <tr><td></td><td><button type="submit">add</button></td></tr>
+                    </tbody>
+                </table>
             </form>
         </div>
     )
