@@ -58,7 +58,7 @@ const App = () => {
             setPersons(persons.map(person => person.id !== existingPerson.id ? person : response))
           })
           .catch(error => {
-            const errorMessage = error.response.data.error
+            let errorMessage = error.response.data.error
             if (error.response.status === 404) {
               errorMessage = `Information of ${existingPerson.name} has already been removed from server`
               setPersons(persons.filter(person => person.id !== existingPerson.id))
