@@ -57,9 +57,14 @@ const App = () => {
             createNotification(`Updated ${existingPerson.name}`, false)
             setPersons(persons.map(person => person.id !== existingPerson.id ? person : response))
           })
-          .catch(() => {
-            createNotification(`Information of ${existingPerson.name} has already been removed from server`, true)
-            setPersons(persons.filter(person => person.id !== existingPerson.id))
+          .catch(error => {
+            const errorMessage = error.response.data.error
+            if (error.response.status === 404) {
+              errorMessage = `Information of ${existingPerson.name} has already been removed from server`
+              setPersons(persons.filter(person => person.id !== existingPerson.id))
+            }
+
+            createNotification(errorMessage, true)
           })
 
         setNewName("")
@@ -81,6 +86,7 @@ const App = () => {
         setNewName("")
         setNewNumber("")
       })
+      .catch(error => createNotification(error.response.data.error, true))
   }
 
   const removePerson = (id, name) => {
