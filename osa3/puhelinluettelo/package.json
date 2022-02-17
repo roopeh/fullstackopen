@@ -8,6 +8,7 @@
     "dev": "nodemon index.js",
     "build:ui": "rm -rf build && cd ../../osa2/puhelinluettelo && npm run build && cp -r build ../../osa3/puhelinluettelo",
     "winbuild:ui": "rmdir /s /q build && cd ..\\..\\osa2\\puhelinluettelo && npm run build && Xcopy build ..\\..\\osa3\\puhelinluettelo\\build /E/H/C/I",
+    "lint": "eslint .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Roope Heinonen",
@@ -20,6 +21,7 @@
     "morgan": "^1.10.0"
   },
   "devDependencies": {
+    "eslint": "^8.9.0",
     "nodemon": "^2.0.15"
   }
 }

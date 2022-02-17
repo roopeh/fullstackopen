@@ -9,7 +9,7 @@ app.use(cors())
 app.use(express.static("build"))
 app.use(express.json())
 
-morgan.token('postData', (req) => {
+morgan.token("postData", (req) => {
     if (req.method === "POST") {
         return JSON.stringify(req.body)
     } else {
@@ -43,7 +43,7 @@ app.get("/api/persons", (req, res) => {
     Person.find({}).then(person => res.json(person))
 })
 
-app.get("/info", (req, res) => {
+app.get("/info", (req, res, next) => {
     const date = new Date()
 
     Person.count({})
@@ -69,7 +69,7 @@ app.get("/api/persons/:id", (req, res, next) => {
 
 app.delete("/api/persons/:id", (req, res, next) => {
     Person.findByIdAndRemove(req.params.id)
-        .then(result => res.status(204).end())
+        .then(() => res.status(204).end())
         .catch(error => next(error))
 })
 
