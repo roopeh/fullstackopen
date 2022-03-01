@@ -47,39 +47,19 @@ describe("Blog app", function describeFunc() {
 
   describe("Testing new blog", function describeBlogFunc() {
     beforeEach(function beforeEachBlog() {
-      cy.request("POST", "http://localhost:3003/api/login/", testUser)
-        .then((res) => {
-          localStorage.setItem("loggedBlogUser", JSON.stringify(res.body))
-        })
-
-      cy.visit('http://localhost:3000');
+      cy.login(testUser)
     })
 
     it("New blog can be created", function createBlogTest() {
-      cy.contains("New blog").click()
-      cy.get("#blogTitle").type(testBlog.title)
-      cy.get("#blogAuthor").type(testBlog.author)
-      cy.get("#blogUrl").type(testBlog.url)
-      cy.get("#createBlogButton").click()
-
+      cy.createBlog(testBlog)
       cy.contains(`A new blog ${testBlog.title} by ${testBlog.author} added`)
     })
   })
 
-  describe("Testing existing blogs", function describeExistingBlogFunc() {
+  describe.only("Testing existing blogs", function describeExistingBlogFunc() {
     beforeEach(function beforeEachBlog() {
-      cy.request("POST", "http://localhost:3003/api/login/", testUser)
-        .then((res) => {
-          localStorage.setItem("loggedBlogUser", JSON.stringify(res.body))
-        })
-
-      cy.visit('http://localhost:3000');
-
-      cy.contains("New blog").click()
-      cy.get("#blogTitle").type(testBlog.title)
-      cy.get("#blogAuthor").type(testBlog.author)
-      cy.get("#blogUrl").type(testBlog.url)
-      cy.get("#createBlogButton").click()
+      cy.login(testUser)
+      cy.createBlog(testBlog)
     })
 
     it("Blog can be liked", function likeBlogTest() {
@@ -92,6 +72,57 @@ describe("Blog app", function describeFunc() {
       cy.contains("View").click()
       cy.contains("Remove").click()
       cy.should("not.contain", testBlog.title)
+    })
+
+    it("Blog cannot be removed by other user", function removeBlogOtherTest() {
+      cy.request("POST", "http://localhost:3003/api/users/", {
+        username: "NewUser",
+        password: "123",
+      })
+
+      cy.login({ username: "NewUser", password: "123" })
+
+      cy.contains("View").click()
+      cy.should("not.contain", "Remove")
+    })
+
+    it.only("Blogs are ordered by likes", function blogOrderTest() {
+      cy.createMultipleBlogs([
+        {
+          title: "First Blog",
+          author: "roopeh",
+          url: "localhost",
+        },
+        {
+          title: "Second Blog",
+          author: "roopeh",
+          url: "localhost",
+        },
+        {
+          title: "Third Blog",
+          author: "roopeh",
+          url: "localhost",
+        },
+      ])
+
+      cy.contains("First Blog").contains("View").click()
+      cy.clickLikeButton("First Blog")
+      cy.contains("Second Blog").contains("View").click()
+      cy.clickLikeButton("Second Blog")
+      cy.clickLikeButton("Second Blog")
+      cy.clickLikeButton("Second Blog")
+      cy.contains("Third Blog").contains("View").click()
+      cy.clickLikeButton("Third Blog")
+      cy.clickLikeButton("Third Blog")
+
+      // cy.contains("First Blog").contains("Hide").click()
+      // cy.contains("Second Blog").contains("Hide").click()
+      // cy.contains("Third Blog").contains("Hide").click()
+
+      cy.contains(testBlog.title).contains("View").click()
+      cy.get(".blogBlock").eq(0).contains("Second Blog")
+      cy.get(".blogBlock").eq(1).contains("Third Blog")
+      cy.get(".blogBlock").eq(2).contains("First Blog")
     })
   })
 })

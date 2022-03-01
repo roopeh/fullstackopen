@@ -1,9 +1,8 @@
 module.exports = {
-  extends: "airbnb",
+  extends: ["airbnb", "plugin:cypress/recommended"],
   env: {
     jest: true,
     browser: true,
-    cypress: true,
   },
   settings: {
     react: {
@@ -34,6 +33,5 @@ module.exports = {
   plugins: [
     "react",
     "jest",
-    "cypress",
   ]
 }

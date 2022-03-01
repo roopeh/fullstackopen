@@ -1,25 +1,30 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+Cypress.Commands.add("login", ({ username, password }) => {
+  cy.request("POST", "http://localhost:3003/api/login/", { username, password })
+    .then((res) => {
+      localStorage.setItem("loggedBlogUser", JSON.stringify(res.body))
+      cy.visit("http://localhost:3000")
+    })
+})
+
+Cypress.Commands.add("createBlog", ({ title, author, url }) => {
+  cy.contains("New blog").click()
+  cy.get("#blogTitle").type(title)
+  cy.get("#blogAuthor").type(author)
+  cy.get("#blogUrl").type(url)
+  cy.get("#createBlogButton").click()
+})
+
+Cypress.Commands.add("createMultipleBlogs", (blogs) => {
+  blogs.forEach((blog) => {
+    cy.get("#blogTitle").type(blog.title)
+    cy.get("#blogAuthor").type(blog.author)
+    cy.get("#blogUrl").type(blog.url)
+    cy.get("#createBlogButton").click()
+  })
+})
+
+Cypress.Commands.add("clickLikeButton", (title) => {
+  cy.contains(title).contains("Like").click()
+  // eslint-disable-next-line cypress/no-unnecessary-waiting
+  cy.wait(500)
+})
