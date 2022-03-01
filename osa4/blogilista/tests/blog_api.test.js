@@ -165,7 +165,7 @@ describe("Updating a blog", () => {
     const blogToUpdate = { ...response.body[0] }
 
     await api.put(`/api/blogs/${blogToUpdate.id}`)
-      .send({ likes: 1337 })
+      .send({ ...blogToUpdate, likes: 1337 })
       .expect(200)
 
     response = await api.get(`/api/blogs/${blogToUpdate.id}`)

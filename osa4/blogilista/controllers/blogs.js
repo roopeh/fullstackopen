@@ -29,6 +29,7 @@ blogsRouter.post("/", userExtractor, async (request, response) => {
   const blog = new Blog({ ...request.body, user: user._id })
 
   const result = await blog.save()
+  result.populate("user", { username: 1, name: 1 })
   // eslint-disable-next-line no-underscore-dangle
   user.blogs = user.blogs.concat(result._id)
   await user.save()
@@ -60,11 +61,9 @@ blogsRouter.delete("/:id", userExtractor, async (request, response) => {
 })
 
 blogsRouter.put("/:id", async (request, response) => {
-  const { likes } = request.body
-
   const updatedBlog = await Blog.findByIdAndUpdate(
     request.params.id,
-    { likes },
+    request.body,
     { new: true, runValidators: true, context: "query" },
   )
 
