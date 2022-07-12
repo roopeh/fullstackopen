@@ -1,0 +1,12 @@
+.blogFormColumn {
+  width: 85%;
+}
+
+.blogFormColumn input {
+  width: inherit;
+}
+
+.header {
+  background-color: lightgray;
+  padding: 5px;
+}
