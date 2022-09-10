@@ -5,10 +5,10 @@ import AppBarText from './AppBarTab'
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: Constants.statusBarHeight < theme.paddings.menuBarPadding
-      ? theme.paddings.menuBarPadding
+    paddingTop: Constants.statusBarHeight < theme.paddings.contentPadding
+      ? theme.paddings.contentPadding
       : Constants.statusBarHeight,
-    padding: theme.paddings.menuBarPadding,
+    padding: theme.paddings.contentPadding,
     backgroundColor: theme.colors.secondary,
   }
 })

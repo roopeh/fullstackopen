@@ -1,17 +1,10 @@
-import { Text, StyleSheet, Pressable } from 'react-native'
-import theme from '../theme'
-
-const styles = StyleSheet.create({
-  text: {
-    color: theme.colors.textSecondary,
-    fontWeight: "bold"
-  }
-})
+import { Pressable } from 'react-native'
+import Text from './Text'
 
 const AppBarText = ({ text, onPress }) => {
   return (
     <Pressable onPress={onPress}>
-        <Text style={styles.text}>{text}</Text>
+        <Text color="textSecondary" bolded>{text}</Text>
       </Pressable>
   )
 }

@@ -1,24 +1,29 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import theme from '../theme'
+import RepositoryItemInfo from './RepositoryItemInfo'
+import RepositoryItemMain from './RepositoryItemMain'
 
 const styles = StyleSheet.create({
   item: {
-    paddingLeft: theme.paddings.defaultPadding
-  }
+    padding: theme.paddings.contentPadding,
+    backgroundColor: theme.colors.repositoryBackground
+  },
 })
 
-const RepositoryItem = ({ content }) => {
-  return (
-      <View style={styles.item}>
-        <Text>Full name: {content.fullName}</Text>
-        <Text>Description: {content.description}</Text>
-        <Text>Language: {content.language}</Text>
-        <Text>Stars: {content.stargazersCount}</Text>
-        <Text>Forks: {content.forksCount}</Text>
-        <Text>Reviews: {content.reviewCount}</Text>
-        <Text>Rating: {content.ratingAverage}</Text>
-      </View>
-  )
-}
+const RepositoryItem = ({ content }) => (
+  <View style={styles.item}>
+    <RepositoryItemMain
+      name={content.fullName}
+      description={content.description}
+      language={content.language}
+      imageUrl={content.ownerAvatarUrl} />
+  
+    <RepositoryItemInfo
+      stars={content.stargazersCount}
+      forks={content.forksCount}
+      reviews={content.reviewCount}
+      rating={content.ratingAverage} />
+  </View>
+)
 
 export default RepositoryItem
