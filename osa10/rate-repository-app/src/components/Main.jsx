@@ -1,21 +1,20 @@
 import { StyleSheet, View } from 'react-native'
-import { StatusBar } from 'expo-status-bar'
 import RepositoryList from './RepositoryList'
+import AppBar from './AppBar'
+import theme from '../theme'
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    //alignItems: 'center',
-    //justifyContent: 'center',
+    backgroundColor: theme.colors.primary,
   }
 })
 
 const Main = () => {
   return (
     <View style={styles.container}>
+      <AppBar />
       <RepositoryList />
-      <StatusBar style="auto" />
     </View>
   )
 }
