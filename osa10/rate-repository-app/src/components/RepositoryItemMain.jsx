@@ -1,27 +1,29 @@
-import { Image, StyleSheet, View } from 'react-native'
-import theme from '../theme'
-import Text from './Text'
+import { Image, StyleSheet, View } from "react-native"
+import theme from "../theme"
+import Text from "./Text"
 
 const styles = StyleSheet.create({
   upperSection: {
     flexDirection: "row",
+    marginRight: theme.paddings.contentPadding
   },
   avatar: {
     width: 50,
     height: 50,
-    borderRadius: theme.rounding.defaultRounding
+    borderRadius: theme.borders.defaultRounding
   },
   mainInfo: {
     paddingLeft: theme.paddings.contentPadding,
+    paddingRight: theme.paddings.contentPadding
   },
   description: {
     marginTop: theme.paddings.defaultPadding,
   },
   languageBox: {
-    backgroundColor: theme.colors.repositoryLanguage,
+    backgroundColor: theme.colors.blue,
     marginTop: theme.paddings.defaultPadding,
     padding: theme.paddings.defaultPadding,
-    borderRadius: theme.rounding.defaultRounding,
+    borderRadius: theme.borders.defaultRounding,
     alignSelf: "flex-start"
   }
 })

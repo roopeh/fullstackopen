@@ -2,17 +2,19 @@ const theme = {
   colors: {
     primary: "#e1e4e8",
     secondary: "#24292e",
-    repositoryBackground: "#fff",
-    repositoryLanguage: "#0366d6",
+    white: "#fff",
+    blue: "#0366d6",
 
     textPrimary: "#586069",
     textSecondary: "#fff"
   },
   paddings: {
     defaultPadding: 5,
+    inputPadding: 10,
     contentPadding: 20
   },
-  rounding: {
+  borders: {
+    defaultWidth: 1,
     defaultRounding: 5
   }
 }

@@ -15,6 +15,10 @@
       "error",
       "never"
     ],
+    "quotes": [
+      "error",
+      "double"
+    ],
     "react/prop-types": "off",
     "react/react-in-jsx-scope": "off"
   }

@@ -1,12 +1,12 @@
-import { StyleSheet, View } from 'react-native'
-import theme from '../theme'
-import RepositoryItemInfo from './RepositoryItemInfo'
-import RepositoryItemMain from './RepositoryItemMain'
+import { StyleSheet, View } from "react-native"
+import theme from "../theme"
+import RepositoryItemInfo from "./RepositoryItemInfo"
+import RepositoryItemMain from "./RepositoryItemMain"
 
 const styles = StyleSheet.create({
   item: {
     padding: theme.paddings.contentPadding,
-    backgroundColor: theme.colors.repositoryBackground
+    backgroundColor: theme.colors.white
   },
 })
 
