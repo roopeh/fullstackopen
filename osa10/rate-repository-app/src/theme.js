@@ -4,6 +4,7 @@ const theme = {
     secondary: "#24292e",
     white: "#fff",
     blue: "#0366d6",
+    error: "#d73a4a", // red
 
     textPrimary: "#586069",
     textSecondary: "#fff"

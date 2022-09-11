@@ -44,8 +44,25 @@ const SignIn = () => {
     resetForm(initialValues)
   }
 
+  // Yup doesn't seem to work on my Android phone so going with Formik default validation
   return (
-    <Formik initialValues={initialValues} onSubmit={onSubmit}>
+    <Formik
+    initialValues={initialValues}
+    onSubmit={onSubmit}
+    validate={(values) => {
+      const errors = {}
+      if (!values.username) {
+        errors.username = "Username is required"
+      } else if (values.username.length < 3) {
+        errors.username = "Username must be at least 3 characters long"
+      }
+      if (!values.password) {
+        errors.password = "Password is required"
+      } else if (values.password.length < 3) {
+        errors.password = "Password must be at least 3 characters long"
+      }
+      return errors
+    }}>
       {({ handleSubmit }) => (
         <View style={styles.form}>
           <FormikTextInput name="username" placeholder="Username" style={styles.input} />
