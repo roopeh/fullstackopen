@@ -1,3 +1,5 @@
+import { Platform } from "react-native"
+
 const theme = {
   colors: {
     primary: "#e1e4e8",
@@ -17,6 +19,13 @@ const theme = {
   borders: {
     defaultWidth: 1,
     defaultRounding: 5
+  },
+  fonts: {
+    main: Platform.select({
+      android: "Roboto",
+      ios: "Arial",
+      default: "System"
+    }),
   }
 }
 
