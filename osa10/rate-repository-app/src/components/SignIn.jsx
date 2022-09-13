@@ -4,9 +4,7 @@ import Text from "./Text"
 import FormikTextInput from "./FormikTextInput"
 import theme from "../theme"
 import useSignIn from "../hooks/useSignIn"
-import AuthStorage from "../utils/authStorage"
-
-const authStorage = new AuthStorage()
+import { useNavigate } from "react-router-native"
 
 const styles = StyleSheet.create({
   form: {
@@ -44,15 +42,12 @@ const initialValues = {
 
 const SignIn = () => {
   const [signIn] = useSignIn()
+  const navigate = useNavigate()
 
   const onSubmit = async (values, { resetForm }) => {
-    // Clear old auth token
-    await authStorage.removeAccessToken()
     try {
-      const { data } = await signIn({ username: values.username, password: values.password })
-      await authStorage.setAccessToken(data.authenticate.accessToken)
-      const newToken = await authStorage.getAccessToken()
-      console.log(`New token: ${newToken}`)
+      await signIn({ username: values.username, password: values.password })
+      navigate("/")
     } catch (error) {
       console.log(error)
     }
