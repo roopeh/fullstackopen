@@ -18,3 +18,12 @@ query Query {
   }
 }
 `
+
+export const ME = gql`
+query Query {
+  me {
+    id
+    username
+  }
+}
+`

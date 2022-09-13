@@ -9,11 +9,20 @@ const styles = StyleSheet.create({
   }
 })
 
-const AppBarTab = ({ text, link }) => {
+const AppBarTabText = ({ text }) => <Text color="textSecondary" bolded>{text}</Text>
+
+const AppBarTab = ({ text, link, onPressed }) => {
+  if (onPressed) {
+    return (
+      <Pressable style={styles.tab} onPress={onPressed}>
+        <AppBarTabText text={text} />
+      </Pressable>
+    )
+  }
   return (
     <Pressable style={styles.tab}>
       <Link to={`/${link}`}>
-        <Text color="textSecondary" bolded>{text}</Text>
+        <AppBarTabText text={text} />
       </Link>
     </Pressable>
   )
