@@ -4,6 +4,9 @@ import Text from "./Text"
 import FormikTextInput from "./FormikTextInput"
 import theme from "../theme"
 import useSignIn from "../hooks/useSignIn"
+import AuthStorage from "../utils/authStorage"
+
+const authStorage = new AuthStorage()
 
 const styles = StyleSheet.create({
   form: {
@@ -43,9 +46,13 @@ const SignIn = () => {
   const [signIn] = useSignIn()
 
   const onSubmit = async (values, { resetForm }) => {
+    // Clear old auth token
+    await authStorage.removeAccessToken()
     try {
       const { data } = await signIn({ username: values.username, password: values.password })
-      console.log(data)
+      await authStorage.setAccessToken(data.authenticate.accessToken)
+      const newToken = await authStorage.getAccessToken()
+      console.log(`New token: ${newToken}`)
     } catch (error) {
       console.log(error)
     }
