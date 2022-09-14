@@ -10,19 +10,21 @@ const styles = StyleSheet.create({
   },
 })
 
-const RepositoryItem = ({ content }) => (
+const RepositoryItem = ({ content, showButton }) => (
   <View style={styles.item}>
     <RepositoryItemMain
       name={content.fullName}
       description={content.description}
       language={content.language}
       imageUrl={content.ownerAvatarUrl} />
-  
+
     <RepositoryItemInfo
       stars={content.stargazersCount}
       forks={content.forksCount}
       reviews={content.reviewCount}
-      rating={content.ratingAverage} />
+      rating={content.ratingAverage}
+      url={content.url}
+      showButton={showButton} />
   </View>
 )
 

@@ -1,10 +1,14 @@
 import { StyleSheet, View } from "react-native"
+import * as Linking from "expo-linking"
 import theme from "../../theme"
+import DefaultButton from "../DefaultButton"
 import Text from "../Text"
 
 const styles = StyleSheet.create({
   infoContainer: {
     marginTop: theme.paddings.contentPadding,
+  },
+  infoBar: {
     flexDirection: "row",
     justifyContent: "space-around"
   },
@@ -25,12 +29,17 @@ const InfoItem = ({ text, amount }) => {
   )
 }
 
-const RepositoryItemInfo = ({ stars, forks, reviews, rating }) => (
+const RepositoryItemInfo = ({ stars, forks, reviews, rating, url, showButton }) => (
   <View style={styles.infoContainer}>
-    <InfoItem text="Stars" amount={stars} />
-    <InfoItem text="Forks" amount={forks} />
-    <InfoItem text="Reviews" amount={reviews} />
-    <InfoItem text="Rating" amount={rating} />
+    <View style={styles.infoBar}>
+      <InfoItem text="Stars" amount={stars} />
+      <InfoItem text="Forks" amount={forks} />
+      <InfoItem text="Reviews" amount={reviews} />
+      <InfoItem text="Rating" amount={rating} />
+    </View>
+    {showButton &&
+    <DefaultButton text="Open in GitHub"
+      onPress={() => Linking.openURL(url)} />}
   </View>
 )
 
