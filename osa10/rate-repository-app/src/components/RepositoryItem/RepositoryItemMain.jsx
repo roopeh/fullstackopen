@@ -8,13 +8,13 @@ const styles = StyleSheet.create({
     marginRight: theme.paddings.contentPadding
   },
   avatar: {
-    width: 50,
-    height: 50,
+    width: theme.images.avatarWidth,
+    height: theme.images.avatarHeight,
     borderRadius: theme.borders.defaultRounding
   },
   mainInfo: {
-    paddingLeft: theme.paddings.contentPadding,
-    paddingRight: theme.paddings.contentPadding
+    marginLeft: theme.paddings.contentPadding,
+    flex: 1
   },
   description: {
     marginTop: theme.paddings.defaultPadding,

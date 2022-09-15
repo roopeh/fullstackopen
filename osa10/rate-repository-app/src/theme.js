@@ -1,4 +1,6 @@
-import { Platform } from "react-native"
+import { Platform, View } from "react-native"
+
+export const ListSeparator = () => <View style={{ height: theme.dividerHeight }} />
 
 const theme = {
   colors: {
@@ -26,7 +28,12 @@ const theme = {
       ios: "Arial",
       default: "System"
     }),
-  }
+  },
+  images: {
+    avatarWidth: 50,
+    avatarHeight: 50
+  },
+  dividerHeight: 10
 }
 
 export default theme
