@@ -28,11 +28,14 @@ const AppBar = () => {
     apolloClient.resetStore()
   }
 
+  const loggedIn = meHook.me && meHook.me.id
+
   return (
     <View style={styles.container}>
       <ScrollView horizontal>
         <AppBarTab text="Repositories" link="" />
-        {meHook.me && meHook.me.id
+        {loggedIn && <AppBarTab text="Create a review" link="createReview" />}
+        {loggedIn
           ? <AppBarTab text="Sign out" onPressed={signOut} />
           : <AppBarTab text="Sign in" link="SignIn" />
         }

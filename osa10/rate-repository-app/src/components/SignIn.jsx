@@ -1,5 +1,6 @@
 import { StyleSheet, View } from "react-native"
 import { Formik } from "formik"
+import * as yup from "yup"
 import FormikTextInput from "./FormikTextInput"
 import theme from "../theme"
 import useSignIn from "../hooks/useSignIn"
@@ -41,25 +42,23 @@ const SignIn = () => {
     resetForm(initialValues)
   }
 
-  // Yup doesn't seem to work on my Android phone so going with Formik default validation
+  const validationSchema = yup.object().shape({
+    username: yup
+      .string()
+      .min(3, "Username must be at least 3 characters long")
+      .required("Username is required"),
+    password: yup
+      .string()
+      .min(3, "Password must be at least 3 characters long")
+      .required("Password is required")
+  })
+
   return (
     <Formik
-    initialValues={initialValues}
-    onSubmit={onSubmit}
-    validate={(values) => {
-      const errors = {}
-      if (!values.username) {
-        errors.username = "Username is required"
-      } else if (values.username.length < 3) {
-        errors.username = "Username must be at least 3 characters long"
-      }
-      if (!values.password) {
-        errors.password = "Password is required"
-      } else if (values.password.length < 3) {
-        errors.password = "Password must be at least 3 characters long"
-      }
-      return errors
-    }}>
+      initialValues={initialValues}
+      onSubmit={onSubmit}
+      validationSchema={validationSchema}
+    >
       {({ handleSubmit }) => (
         <View style={styles.form}>
           <FormikTextInput name="username" placeholder="Username" style={styles.input} />
