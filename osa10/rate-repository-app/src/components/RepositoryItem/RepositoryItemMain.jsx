@@ -35,7 +35,7 @@ const RepositoryItemMain = ({ name, description, language, imageUrl }) => (
       <Text color="textBlack" bolded>{name}</Text>
       <Text style={styles.description}>{description}</Text>
       <View style={styles.languageBox}>
-        <Text color="textSecondary">{language}</Text>
+        <Text color="textSecondary">{language ? language : "undefined"}</Text>
       </View>
     </View>
   </View>
