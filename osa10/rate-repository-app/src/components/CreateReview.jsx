@@ -1,34 +1,7 @@
-import { Formik } from "formik"
-import { StyleSheet, View } from "react-native"
 import { useNavigate } from "react-router-native"
 import * as yup from "yup"
 import useCreateReview from "../hooks/useCreateReview"
-import theme from "../theme"
-import DefaultButton from "./DefaultButton"
-import FormikTextInput from "./FormikTextInput"
-
-const styles = StyleSheet.create({
-  form: {
-    backgroundColor: theme.colors.white,
-    padding: theme.paddings.contentPadding,
-    paddingTop: 0
-  },
-  input: {
-    width: "100%",
-    padding: theme.paddings.inputPadding,
-    marginTop: theme.paddings.contentPadding,
-    borderWidth: theme.borders.defaultWidth,
-    borderRadius: theme.borders.defaultRounding,
-    borderColor: theme.colors.textPrimary
-  }
-})
-
-const initialValues = {
-  repositoryOwner: "",
-  repositoryName: "",
-  repositoryRating: "",
-  repositoryReview: ""
-}
+import DefaultForm from "./DefaultForm"
 
 const CreateReview = () => {
   const [createReview] = useCreateReview()
@@ -63,35 +36,36 @@ const CreateReview = () => {
       .required("Rating is required")
   })
 
+  const inputs = [
+    {
+      name: "repositoryOwner",
+      placeholder: "Repository owner name",
+      initial: ""
+    },
+    {
+      name: "repositoryName",
+      placeholder: "Repository name",
+      initial: ""
+    },
+    {
+      name: "repositoryRating",
+      placeholder: "Rating between 0 and 100",
+      initial: ""
+    },
+    {
+      name: "repositoryReview",
+      placeholder: "Review",
+      initial: "",
+      multiline: true
+    }
+  ]
+
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={onSubmit}
+    <DefaultForm
+      inputs={inputs}
       validationSchema={validationSchema}
-    >
-      {({ handleSubmit }) => (
-        <View style={styles.form}>
-          <FormikTextInput
-            name="repositoryOwner"
-            placeholder="Repository owner name"
-            style={styles.input} />
-          <FormikTextInput
-            name="repositoryName"
-            placeholder="Repository name"
-            style={styles.input} />
-          <FormikTextInput
-            name="repositoryRating"
-            placeholder="Rating between 0 and 100"
-            style={styles.input} />
-          <FormikTextInput
-            name="repositoryReview"
-            placeholder="Review"
-            style={styles.input}
-            multiline />
-          <DefaultButton text="Create a review" onPress={handleSubmit} />
-        </View>
-      )}
-    </Formik>
+      submitText="Create a review"
+      onSubmit={onSubmit} />
   )
 }
 

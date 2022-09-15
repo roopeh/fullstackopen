@@ -39,6 +39,7 @@ const AppBar = () => {
           ? <AppBarTab text="Sign out" onPressed={signOut} />
           : <AppBarTab text="Sign in" link="SignIn" />
         }
+        {!loggedIn && <AppBarTab text="Sign up" link="SignUp" />}
       </ScrollView>
     </View>
   )

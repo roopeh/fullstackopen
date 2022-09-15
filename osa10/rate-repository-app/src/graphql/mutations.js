@@ -19,3 +19,12 @@ mutation Mutation($review: CreateReviewInput) {
   }
 }
 `
+
+export const SIGN_UP = gql`
+mutation Mutation($user: CreateUserInput) {
+  createUser(user: $user) {
+    id
+    username
+  }
+}
+`
