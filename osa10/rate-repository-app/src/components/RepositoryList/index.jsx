@@ -1,22 +1,11 @@
 import { useState } from "react"
-import { FlatList, Pressable, StyleSheet } from "react-native"
-import { Picker } from "@react-native-picker/picker"
+import { FlatList, Pressable } from "react-native"
 import { useNavigate } from "react-router-native"
-import useRepositories from "../hooks/useRepositories"
-import RepositoryItem from "./RepositoryItem"
-import theme, { ListSeparator } from "../theme"
-
-const styles = StyleSheet.create({
-  orderMenu: {
-    margin: theme.paddings.contentPadding,
-    padding: theme.paddings.defaultPadding,
-    backgroundColor: theme.colors.primary,
-    borderWidth: 0
-  },
-  menuHeader: {
-    color: theme.colors.primary
-  }
-})
+import { useDebounce } from "use-debounce"
+import useRepositories from "../../hooks/useRepositories"
+import RepositoryItem from "../RepositoryItem"
+import { ListSeparator } from "../../theme"
+import RepositoryListHeader from "./RepositoryListHeader"
 
 const orderContent = [
   {
@@ -34,12 +23,15 @@ const orderContent = [
 ]
 
 const RepositoryList = () => {
+  const [searchText, setSearchText] = useState("")
+  const [delayedSearchText] = useDebounce(searchText, 500)
   const [selectedOrder, setSelectedOrder] = useState(orderContent[0].value)
   const splittedOrderString = selectedOrder.split(".")
 
   const { repositories } = useRepositories(
     splittedOrderString[0],
-    splittedOrderString[1]
+    splittedOrderString[1],
+    delayedSearchText
   )
   const navigate = useNavigate()
 
@@ -47,18 +39,6 @@ const RepositoryList = () => {
   const repositoryNodes = repositories && repositories.edges
     ? repositories.edges.map(edge => edge.node)
     : []
-
-  const OrderMenu = () => (
-    <Picker
-      selectedValue={selectedOrder}
-      style={styles.orderMenu}
-      onValueChange={(value) => setSelectedOrder(value)} >
-        <Picker.Item label="Select an item..." value="default" enabled={false} style={styles.menuHeader} />
-        {orderContent.map((item) => (
-          <Picker.Item key={item.value} label={item.label} value={item.value} />
-        ))}
-    </Picker>
-  )
 
   const renderItem = ({ item }) => (
     <Pressable onPress={() => navigate(`/repository/${item.id}`)}>
@@ -72,7 +52,17 @@ const RepositoryList = () => {
       ItemSeparatorComponent={ListSeparator}
       renderItem={renderItem}
       keyExtractor={(_item, index) => index.toString()}
-      ListHeaderComponent={() => <OrderMenu />}
+      ListHeaderComponent={
+        // NO arrow function here or input will keep re rendering
+        // and define component outside of class
+        <RepositoryListHeader
+          searchText={searchText}
+          setSearchText={setSearchText}
+          selectedOrder={selectedOrder}
+          setSelectedOrder={setSelectedOrder}
+          orderContent={orderContent}
+        />
+      }
     />
   )
 }
