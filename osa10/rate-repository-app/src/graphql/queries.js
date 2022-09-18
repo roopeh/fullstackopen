@@ -23,7 +23,7 @@ $searchKeyword: String) {
 `
 
 export const GET_REPOSITORY = gql`
-query Query($repositoryId: ID!) {
+query Query($repositoryId: ID!, $first: Int, $after: String) {
   repository(id: $repositoryId) {
     id
     fullName
@@ -35,7 +35,13 @@ query Query($repositoryId: ID!) {
     stargazersCount
     forksCount
     url
-    reviews {
+    reviews(first: $first, after: $after) {
+      totalCount
+      pageInfo {
+        hasNextPage
+        startCursor
+        endCursor
+      }
       edges {
         node {
           id
