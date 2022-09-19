@@ -16,10 +16,6 @@ const Repository = () => {
     return null
   }
 
-  const fetchMore = () => {
-    data.fetchMore()
-  }
-
   const repo = data.repository
   const reviews = repo.reviews.edges
     ? repo.reviews.edges.map(edge => edge.node)
@@ -32,7 +28,7 @@ const Repository = () => {
       renderItem={(item) => <ReviewItem review={item} leading={item.index === 0} />}
       keyExtractor={({ id }) => id}
       ListHeaderComponent={() => <RepositoryItem content={repo} showButton />}
-      onEndReached={fetchMore}
+      onEndReached={() => data.fetchMore()}
       onEndReachedThreshold={0.1}
     />
   )

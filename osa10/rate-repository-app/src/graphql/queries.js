@@ -60,10 +60,35 @@ query Query($repositoryId: ID!, $first: Int, $after: String) {
 `
 
 export const ME = gql`
-query Query {
+query Query($first: Int, $after: String, $includeReviews: Boolean = false) {
   me {
     id
     username
+    reviews (first: $first, after: $after) @include(if: $includeReviews) {
+      totalCount
+      pageInfo {
+        hasNextPage
+        startCursor
+        endCursor
+      }
+      edges {
+        cursor
+        node {
+          id
+          repository {
+            id
+            fullName
+          }
+          rating
+          createdAt
+          text
+          user {
+            id
+            username
+          }
+        }
+      }
+    }
   }
 }
 `
