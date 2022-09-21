@@ -4,7 +4,6 @@ import theme from "../theme"
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
     padding: theme.paddings.inputPadding,
     marginTop: theme.paddings.contentPadding,
     borderWidth: theme.borders.defaultWidth,

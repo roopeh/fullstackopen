@@ -33,7 +33,8 @@ const theme = {
     avatarWidth: 50,
     avatarHeight: 50
   },
-  dividerHeight: 10
+  dividerHeight: 10,
+  dividerWidth: 10
 }
 
 export default theme

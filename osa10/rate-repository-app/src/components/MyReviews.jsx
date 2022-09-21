@@ -15,22 +15,11 @@ const MyReviews = () => {
 
   const reviews = data.me.reviews.edges.map(edge => edge.node)
 
-  // Replace username field with repository name
-  const alteredList = reviews.map((item) => {
-    return {
-      ...item,
-      user: {
-        ...item.user,
-        username: item.repository.fullName
-      }
-    }
-  })
-
   return (
     <FlatList
-      data={alteredList}
+      data={reviews}
       ItemSeparatorComponent={ListSeparator}
-      renderItem={(item) => <ReviewItem review={item} />}
+      renderItem={(item) => <ReviewItem review={item} refetchFunc={data.refetch} viewingMyReviews />}
       keyExtractor={({ id }) => id}
       onEndReached={() => data.fetchMore()}
       onEndReachedThreshold={0.1}
